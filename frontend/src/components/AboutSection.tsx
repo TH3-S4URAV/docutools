@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { ShieldCheck, Zap, UserCheck, Layers, FileCheck, Lock } from 'lucide-react';
 
 export const AboutSection: React.FC = () => {
@@ -51,6 +51,56 @@ export const AboutSection: React.FC = () => {
           <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
             Zero signups, zero credit cards, zero watermarks forced into your documents. Every single tool is ready for instant use by students and professionals.
           </p>
+        </div>
+      </div>
+
+      {/* Frequently Asked Questions (SEO Optimized) */}
+      <div id="faq" className="mt-16 pt-12 border-t border-slate-200/60 dark:border-slate-800/60 text-left">
+        <div className="text-center max-w-xl mx-auto mb-10">
+          <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-2">
+            Frequently Asked Questions
+          </h3>
+          <p className="text-xs text-slate-500 dark:text-slate-400">
+            Everything you need to know about using DocuTools for your documents and PDFs.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+          <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/70 dark:border-slate-800">
+            <h4 className="text-sm font-bold text-slate-900 dark:text-white mb-1.5">
+              How to convert PDF to Image (JPG or PNG)?
+            </h4>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Click on the <strong>PDF to JPG</strong> or <strong>PDF to PNG</strong> tool, choose your PDF document, and instantly download high-definition JPG pictures or transparent PNG photos of all pages.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/70 dark:border-slate-800">
+            <h4 className="text-sm font-bold text-slate-900 dark:text-white mb-1.5">
+              Can I convert JPG and PNG images into a PDF?
+            </h4>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Yes! Use the <strong>JPG to PDF</strong> or <strong>PNG to PDF</strong> tool to merge multiple pictures, receipts, or photos into a single, clean PDF file with custom page orientation.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/70 dark:border-slate-800">
+            <h4 className="text-sm font-bold text-slate-900 dark:text-white mb-1.5">
+              Is DocuTools really 100% free to use?
+            </h4>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Yes. All 32 document tools including Merge PDF, Compress PDF, PDF to Word, and OCR are completely free without daily limits, hidden subscriptions, or account requirements.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/70 dark:border-slate-800">
+            <h4 className="text-sm font-bold text-slate-900 dark:text-white mb-1.5">
+              Are my files safe and private?
+            </h4>
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              DocuTools never reads, analyzes, or retains your documents. Processing occurs in isolated memory containers and client-side browser WebAssembly, with automated file deletion.
+            </p>
+          </div>
         </div>
       </div>
     </section>

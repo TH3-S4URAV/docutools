@@ -1,4 +1,4 @@
-﻿import { ToolItem } from '../types';
+import { ToolItem } from '../types';
 
 export const TOOLS: ToolItem[] = [
   // --- PDF ORGANIZE / EDIT (1-11) ---
@@ -233,18 +233,19 @@ export const TOOLS: ToolItem[] = [
   {
     id: 'pdf-to-jpg',
     title: 'PDF to JPG',
-    description: 'Convert each page of your PDF into high-resolution JPG images packaged neatly.',
+    description: 'Convert PDF to Image (JPG). Turn each PDF page into high-resolution JPG photos and images.',
     category: 'convert_from_pdf',
     iconName: 'Image',
     badgeBg: 'bg-amber-100 dark:bg-amber-950/60',
     badgeColor: 'text-amber-600 dark:text-amber-400',
     accept: '.pdf',
-    endpoint: '/api/tools/pdf-to-images'
+    endpoint: '/api/tools/pdf-to-images',
+    popular: true
   },
   {
     id: 'pdf-to-png',
     title: 'PDF to PNG',
-    description: 'Render crisp, transparent PNG images from your PDF pages with lossless quality.',
+    description: 'Convert PDF to Image (PNG). Render crisp, transparent PNG pictures from PDF pages with lossless clarity.',
     category: 'convert_from_pdf',
     iconName: 'Image',
     badgeBg: 'bg-purple-100 dark:bg-purple-950/60',
