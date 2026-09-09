@@ -1,4 +1,5 @@
 ﻿import { ProcessResult } from '../types';
+import { clientMergePdfs, clientRotatePdf, clientImagesToPdf, clientAddWatermark, clientAddPageNumbers } from './clientPdf';
 
 export async function processToolRequest(endpoint: string, formData: FormData): Promise<ProcessResult> {
   const url = endpoint.startsWith('http') ? endpoint : endpoint;
@@ -24,7 +25,6 @@ export async function processToolRequest(endpoint: string, formData: FormData): 
 
     const contentType = response.headers.get('content-type') || '';
     
-    // If server returned JSON (e.g. compare-pdf or ocr)
     if (contentType.includes('application/json')) {
       const data = await response.json();
       return {
@@ -34,11 +34,9 @@ export async function processToolRequest(endpoint: string, formData: FormData): 
       };
     }
 
-    // Otherwise binary download file
     const blob = await response.blob();
     const downloadUrl = window.URL.createObjectURL(blob);
 
-    // Extract filename from Content-Disposition header
     let filename = 'processed_document';
     const disposition = response.headers.get('content-disposition');
     if (disposition && disposition.includes('filename=')) {
@@ -61,8 +59,35 @@ export async function processToolRequest(endpoint: string, formData: FormData): 
       savingsPercent: savingsPercent || undefined,
     };
   } catch (error: any) {
-    console.error('API Error:', error);
-    throw new Error(error.message || 'Network error or server unavailable. Please try again.');
+    console.warn('Backend unavailable, attempting client-side fallback:', error);
+
+    // Client-side fallback handler for static / serverless deployments
+    try {
+      if (endpoint.includes('/merge')) {
+        const files = formData.getAll('files') as File[];
+        if (files && files.length >= 2) return await clientMergePdfs(files);
+      } else if (endpoint.includes('/rotate')) {
+        const file = formData.get('file') as File;
+        const angle = parseInt(formData.get('angle') as string) || 90;
+        if (file) return await clientRotatePdf(file, angle);
+      } else if (endpoint.includes('/images-to-pdf')) {
+        const files = formData.getAll('files') as File[];
+        if (files && files.length > 0) return await clientImagesToPdf(files);
+      } else if (endpoint.includes('/watermark')) {
+        const file = formData.get('file') as File;
+        const text = (formData.get('text') as string) || 'CONFIDENTIAL';
+        const opacity = parseFloat(formData.get('opacity') as string) || 0.3;
+        if (file) return await clientAddWatermark(file, text, opacity);
+      } else if (endpoint.includes('/page-numbers')) {
+        const file = formData.get('file') as File;
+        const pattern = (formData.get('format_pattern') as string) || 'Page {n} of {total}';
+        if (file) return await clientAddPageNumbers(file, pattern);
+      }
+    } catch (clientErr: any) {
+      console.error('Client fallback failed:', clientErr);
+    }
+
+    throw new Error(error.message || 'Processing failed or server is temporarily unreachable.');
   }
 }
 
