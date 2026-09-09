@@ -1,0 +1,16 @@
+﻿version: "3.9"
+
+services:
+  docutools:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: docutools_app
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+      - HOST=0.0.0.0
+      - MAX_UPLOAD_SIZE=52428800
+      - CLEANUP_MAX_AGE_SECONDS=900
+    restart: unless-stopped
