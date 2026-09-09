@@ -19,7 +19,6 @@
     "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
-    "@rolldown/binding-win32-x64-msvc": "^1.2.8",
     "@types/canvas-confetti": "^1.9.0",
     "@types/node": "^24.13.3",
     "@types/react": "^19.2.18",
@@ -28,5 +27,9 @@
     "oxlint": "^1.79.0",
     "typescript": "~6.0.2",
     "vite": "^8.2.2"
+  },
+  "optionalDependencies": {
+    "@rolldown/binding-linux-x64-gnu": "^1.2.8",
+    "@rolldown/binding-win32-x64-msvc": "^1.2.8"
   }
 }
