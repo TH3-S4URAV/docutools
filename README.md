@@ -1,6 +1,9 @@
-﻿# DOCUTOOLS
+# DOCUTOOLS
 
-> **"All your document tools in one place."**
+> **"All your document tools in one place."**  
+>  
+> 🌐 **Live Web App**: [https://docutools.vercel.app](https://docutools.vercel.app)  
+> 🔗 **Direct Mirrors**: [https://docutools-pdf.vercel.app](https://docutools-pdf.vercel.app) • [https://docutools-free.vercel.app](https://docutools-free.vercel.app)
 
 DocuTools is a complete, polished, production-ready document and PDF management web platform. It delivers 32 high-performance, privacy-conscious utilities for manipulating, organizing, securing, converting, and analyzing PDFs, Office documents, and images.
 
