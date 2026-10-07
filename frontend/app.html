@@ -2,8 +2,8 @@
 <html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DocuTools — 100% Free Online PDF & Document Suite</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>DocuTools — Complete Online PDF & Document Suite</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -21,91 +21,105 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; }
-    .custom-scrollbar::-webkit-scrollbar { width: 6px; }
-    .custom-scrollbar::-webkit-scrollbar-thumb { background: #475569; border-radius: 9999px; }
+    body { font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; }
+    .custom-scrollbar::-webkit-scrollbar { width: 5px; height: 5px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 9999px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #475569; }
+    .glass-card { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(12px); }
   </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-indigo-500 selection:text-white">
 
   <!-- NAVBAR -->
-  <header class="sticky top-0 z-40 w-full backdrop-blur-md bg-slate-950/80 border-b border-slate-800">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-      <div class="flex items-center gap-3 cursor-pointer" onclick="resetFilters()">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center shadow-lg shadow-indigo-500/20">
-          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+  <header class="sticky top-0 z-40 w-full backdrop-blur-xl bg-slate-950/85 border-b border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-3 cursor-pointer select-none" onclick="resetFilters()">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-violet-500 flex items-center justify-center shadow-lg shadow-indigo-500/25 ring-1 ring-white/20">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
         </div>
         <div>
-          <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-200 to-indigo-300 bg-clip-text text-transparent">DocuTools</span>
-          <span class="hidden sm:inline-block ml-2 text-xs px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-semibold">100% Free & Local</span>
+          <div class="flex items-center gap-1.5">
+            <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-100 to-indigo-200 bg-clip-text text-transparent">DocuTools</span>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-indigo-500/15 text-indigo-400 border border-indigo-500/20">PRO</span>
+          </div>
+          <span class="hidden sm:inline-block text-[11px] text-slate-400">All your document tools in one place</span>
         </div>
       </div>
-      <div class="flex items-center gap-3">
-        <a href="/docs" target="_blank" class="text-xs sm:text-sm font-semibold text-slate-400 hover:text-white px-3 py-1.5 rounded-lg border border-slate-800 hover:bg-slate-800 transition flex items-center gap-1.5">
-          <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
-          API Docs (/docs)
+      
+      <div class="flex items-center gap-2 sm:gap-3">
+        <a href="/docs" target="_blank" class="text-xs font-semibold text-slate-300 hover:text-white px-3 py-2 rounded-xl border border-slate-800 hover:bg-slate-900 transition flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+          <span class="hidden xs:inline">Swagger</span> Docs
         </a>
-        <button onclick="toggleTheme()" class="p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-white transition">
-          <svg id="themeIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+        <button onclick="toggleTheme()" aria-label="Toggle theme" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
         </button>
       </div>
     </div>
   </header>
 
   <!-- HERO SECTION -->
-  <section class="relative pt-12 pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center">
-    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold mb-4">
+  <section class="relative pt-8 sm:pt-12 pb-6 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center">
+    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-semibold mb-3">
       <span class="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
-      32 Production Document & PDF Utilities
+      32 Production Document & PDF Tools • 100% Free
     </div>
-    <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white max-w-3xl mx-auto leading-tight">
-      Every Document Tool You Need, <span class="bg-gradient-to-r from-indigo-400 via-violet-400 to-pink-400 bg-clip-text text-transparent">In One Place.</span>
+    <h1 class="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white max-w-3xl mx-auto leading-tight">
+      Every Tool You Need, <span class="bg-gradient-to-r from-indigo-400 via-violet-300 to-pink-400 bg-clip-text text-transparent">Right in Your Browser.</span>
     </h1>
-    <p class="mt-4 text-slate-400 text-sm sm:text-base max-w-2xl mx-auto">
-      Merge, convert, split, compress, edit, sign, protect, and OCR your files with native C++ PyMuPDF speed and zero file retention.
+    <p class="mt-3 text-slate-400 text-xs sm:text-sm md:text-base max-w-2xl mx-auto">
+      Convert, merge, compress, protect, edit, sign, and OCR your documents with instant C++ PyMuPDF engine speed.
     </p>
 
     <!-- SEARCH BAR -->
-    <div class="mt-8 max-w-xl mx-auto relative">
-      <input type="text" id="searchInput" oninput="handleSearch()" placeholder="Search tools (e.g. Merge, Word, Compress, Password)..." 
-        class="w-full px-5 py-3.5 pl-12 rounded-2xl bg-slate-900 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition shadow-xl text-sm sm:text-base">
-      <svg class="w-5 h-5 text-slate-500 absolute left-4 top-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+    <div class="mt-6 max-w-xl mx-auto relative px-2 sm:px-0">
+      <input type="text" id="searchInput" oninput="handleSearch()" placeholder="Search any tool (e.g. Merge, Word, Compress, Password)..." 
+        class="w-full px-4 sm:px-5 py-3 pl-11 rounded-2xl bg-slate-900/90 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition shadow-xl text-xs sm:text-sm">
+      <svg class="w-4 h-4 text-slate-500 absolute left-5 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
     </div>
 
     <!-- CATEGORY TABS -->
-    <div class="mt-6 flex flex-wrap justify-center gap-2" id="categoryTabs">
+    <div class="mt-5 flex items-center justify-start sm:justify-center gap-1.5 sm:gap-2 overflow-x-auto pb-2 px-2 custom-scrollbar select-none" id="categoryTabs">
       <!-- Tabs generated via JS -->
     </div>
   </section>
 
   <!-- TOOLS GRID -->
   <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 w-full">
-    <div id="toolsGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <div id="sectionHeader" class="mb-4 flex items-center justify-between">
+      <h2 id="sectionTitle" class="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+        <span>🔥 Most Popular & All Tools</span>
+      </h2>
+      <span id="toolCountBadge" class="text-xs px-2.5 py-0.5 rounded-full bg-slate-900 border border-slate-800 text-slate-400 font-semibold">32 Tools</span>
+    </div>
+
+    <div id="toolsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3.5 sm:gap-4.5">
       <!-- Cards generated via JS -->
     </div>
+    
     <div id="noResults" class="hidden text-center py-16">
-      <div class="w-16 h-16 mx-auto rounded-full bg-slate-900 flex items-center justify-center text-slate-600 mb-4">
-        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      <div class="w-14 h-14 mx-auto rounded-full bg-slate-900 flex items-center justify-center text-slate-600 mb-3">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
       </div>
-      <p class="text-slate-400 font-medium">No tools found matching your query.</p>
-      <button onclick="resetFilters()" class="mt-3 text-sm text-indigo-400 hover:underline">Reset search filter</button>
+      <p class="text-slate-300 font-medium text-sm">No tools found matching your search.</p>
+      <button onclick="resetFilters()" class="mt-2 text-xs text-indigo-400 hover:underline">Reset search filter</button>
     </div>
   </main>
 
   <!-- MODAL DIALOG -->
-  <div id="toolModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto custom-scrollbar shadow-2xl p-6 sm:p-8 relative">
-      <button onclick="closeModal()" class="absolute top-6 right-6 text-slate-400 hover:text-white p-2 rounded-xl bg-slate-800/50 hover:bg-slate-800 transition">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+  <div id="toolModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-5">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl sm:rounded-3xl max-w-xl w-full max-h-[92vh] overflow-y-auto custom-scrollbar shadow-2xl p-5 sm:p-7 relative animate-in fade-in zoom-in-95 duration-150">
+      <button onclick="closeModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white p-2 rounded-xl bg-slate-800/60 hover:bg-slate-800 transition">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
 
-      <div class="flex items-center gap-4 mb-6">
-        <div id="modalIcon" class="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl font-bold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 shadow-inner">
+      <div class="flex items-center gap-3.5 mb-5 pr-8">
+        <div id="modalIcon" class="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl font-bold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 shrink-0">
           📄
         </div>
         <div>
-          <h3 id="modalTitle" class="text-xl sm:text-2xl font-bold text-white">Tool Title</h3>
-          <p id="modalDesc" class="text-slate-400 text-xs sm:text-sm mt-1">Tool description goes here.</p>
+          <h3 id="modalTitle" class="text-lg sm:text-xl font-bold text-white leading-tight">Tool Title</h3>
+          <p id="modalDesc" class="text-slate-400 text-xs mt-1 leading-snug">Tool description goes here.</p>
         </div>
       </div>
 
@@ -114,104 +128,99 @@
         ondragover="event.preventDefault(); this.classList.add('border-indigo-500', 'bg-indigo-500/5')" 
         ondragleave="this.classList.remove('border-indigo-500', 'bg-indigo-500/5')" 
         ondrop="event.preventDefault(); this.classList.remove('border-indigo-500', 'bg-indigo-500/5'); handleDrop(event)"
-        class="border-2 border-dashed border-slate-700 hover:border-indigo-500 rounded-2xl p-8 text-center cursor-pointer transition bg-slate-950/40 hover:bg-indigo-500/5">
+        class="border-2 border-dashed border-slate-700/80 hover:border-indigo-500 rounded-2xl p-6 sm:p-8 text-center cursor-pointer transition bg-slate-950/40 hover:bg-indigo-500/5 select-none">
         <input type="file" id="fileInput" class="hidden" onchange="handleFileSelect(event)">
-        <div class="w-12 h-12 mx-auto rounded-full bg-slate-800/80 flex items-center justify-center text-indigo-400 mb-3">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+        <div class="w-11 h-11 mx-auto rounded-full bg-slate-800/80 flex items-center justify-center text-indigo-400 mb-2.5">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
         </div>
-        <p class="text-sm font-semibold text-slate-200">Click to upload or drag & drop files here</p>
-        <p id="modalAcceptInfo" class="text-xs text-slate-500 mt-1">Accepts document files</p>
+        <p class="text-xs sm:text-sm font-semibold text-slate-200">Tap to choose or drag & drop files here</p>
+        <p id="modalAcceptInfo" class="text-[11px] text-slate-500 mt-1">Accepts document files</p>
       </div>
 
       <!-- SELECTED FILES PREVIEW -->
       <div id="fileListContainer" class="hidden mt-4 space-y-2">
-        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400">Selected Files</h4>
+        <div class="flex items-center justify-between">
+          <h4 class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Selected Files</h4>
+          <span id="fileCountBadge" class="text-[10px] text-slate-500"></span>
+        </div>
         <div id="fileList" class="space-y-1.5 max-h-36 overflow-y-auto custom-scrollbar"></div>
       </div>
 
       <!-- DYNAMIC TOOL OPTIONS -->
-      <div id="toolOptions" class="mt-5 space-y-4"></div>
-
-      <!-- ACTION BUTTONS -->
-      <div class="mt-6 flex items-center justify-end gap-3 pt-4 border-t border-slate-800">
-        <button onclick="closeModal()" class="px-5 py-2.5 rounded-xl border border-slate-800 text-slate-300 hover:bg-slate-800 text-sm font-semibold transition">
-          Cancel
-        </button>
-        <button id="processBtn" onclick="processTool()" disabled class="px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-semibold shadow-lg shadow-indigo-600/30 transition flex items-center gap-2">
-          <span>Process & Download</span>
-        </button>
-      </div>
+      <div id="toolOptions" class="mt-4 space-y-3.5"></div>
 
       <!-- STATUS / PROGRESS -->
-      <div id="statusMessage" class="hidden mt-4 p-3.5 rounded-xl text-sm font-medium"></div>
+      <div id="statusMessage" class="hidden mt-4 p-3 rounded-xl text-xs sm:text-sm font-medium"></div>
+
+      <!-- ACTION BUTTONS -->
+      <div class="mt-5 flex items-center justify-end gap-2.5 pt-4 border-t border-slate-800">
+        <button onclick="closeModal()" class="px-4 py-2.5 rounded-xl border border-slate-800 text-slate-300 hover:bg-slate-800 text-xs sm:text-sm font-semibold transition">
+          Cancel
+        </button>
+        <button id="processBtn" onclick="processTool()" disabled class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed text-white text-xs sm:text-sm font-semibold shadow-lg shadow-indigo-600/30 transition flex items-center gap-2">
+          <span id="processBtnText">Process & Download</span>
+        </button>
+      </div>
     </div>
   </div>
 
   <!-- FOOTER -->
-  <footer class="border-t border-slate-800 bg-slate-950 py-8 text-center text-xs text-slate-500">
-    <div class="max-w-7xl mx-auto px-4">
-      <p class="font-medium text-slate-400">DocuTools — Production Ready Local & Hosted Document Suite</p>
-      <p class="mt-1">Powered by FastAPI, PyMuPDF Engine, and Tailwind CSS. Privacy Guaranteed.</p>
+  <footer class="border-t border-slate-800/80 bg-slate-950 py-6 text-center text-xs text-slate-500 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <p class="font-medium text-slate-400">DocuTools — Production Document Processing Suite</p>
+      <p>Powered by FastAPI, PyMuPDF Engine, and Tailwind CSS. 100% Privacy.</p>
     </div>
   </footer>
 
   <script>
     // -------------------------------------------------------------
-    // TOOL DEFINITIONS (ALL 32 TOOLS)
+    // 32 PRODUCTION TOOLS CATALOG (MOST POPULAR FIRST!)
     // -------------------------------------------------------------
     const TOOLS = [
-      // Organize / Edit
-      { id: 'merge-pdf', title: 'Merge PDF', desc: 'Combine multiple PDFs into one document in your exact order.', cat: 'organize', icon: '📑', multiple: true, accept: '.pdf', endpoint: '/api/tools/merge' },
-      { id: 'split-pdf', title: 'Split PDF', desc: 'Extract custom page ranges or separate all pages.', cat: 'organize', icon: '✂️', accept: '.pdf', endpoint: '/api/tools/split', hasRange: true },
-      { id: 'compress-pdf', title: 'Compress PDF', desc: 'Reduce file size while preserving high visual quality.', cat: 'organize', icon: '🗜️', accept: '.pdf', endpoint: '/api/tools/compress', hasCompress: true },
-      { id: 'edit-pdf', title: 'Edit PDF', desc: 'Add text annotations or draw directly onto pages.', cat: 'organize', icon: '✏️', accept: '.pdf', endpoint: '/api/tools/edit', hasText: true },
-      { id: 'rotate-pdf', title: 'Rotate PDF', desc: 'Rotate specific or all pages by 90°, 180°, or 270°.', cat: 'organize', icon: '🔄', accept: '.pdf', endpoint: '/api/tools/rotate', hasRotate: true },
-      { id: 'organize-pdf', title: 'Organize PDF', desc: 'Reorder, rotate, or delete individual pages.', cat: 'organize', icon: '📋', accept: '.pdf', endpoint: '/api/tools/organize', hasOrder: true },
-      { id: 'delete-pages', title: 'Delete PDF Pages', desc: 'Remove unwanted pages or page ranges from a document.', cat: 'organize', icon: '🗑️', accept: '.pdf', endpoint: '/api/tools/delete-pages', hasRange: true },
-      { id: 'extract-pages', title: 'Extract PDF Pages', desc: 'Export selected page numbers into a standalone PDF.', cat: 'organize', icon: '📤', accept: '.pdf', endpoint: '/api/tools/extract-pages', hasRange: true },
+      // === TOP 12 MOST USED TOOLS (PRIORITY ORDER) ===
+      { id: 'merge-pdf', title: 'Merge PDF', desc: 'Combine multiple PDFs into a single document in custom order.', cat: 'organize', icon: '📑', multiple: true, accept: '.pdf', endpoint: '/api/tools/merge', popular: true },
+      { id: 'pdf-to-word', title: 'PDF to Word (.docx)', desc: 'Convert PDF into an editable Microsoft Word document.', cat: 'from_pdf', icon: '📘', accept: '.pdf', endpoint: '/api/tools/pdf-to-word', popular: true },
+      { id: 'word-to-pdf', title: 'Word to PDF', desc: 'Convert DOCX Word documents into professional PDF files.', cat: 'to_pdf', icon: '📄', accept: '.docx,.doc', endpoint: '/api/tools/word-to-pdf', popular: true },
+      { id: 'compress-pdf', title: 'Compress PDF', desc: 'Reduce PDF file size significantly while retaining crisp text & quality.', cat: 'organize', icon: '🗜️', accept: '.pdf', endpoint: '/api/tools/compress', popular: true, hasCompress: true },
+      { id: 'pdf-to-jpg', title: 'PDF to JPG', desc: 'Render PDF pages into crisp high-definition JPG images.', cat: 'from_pdf', icon: '🖼️', accept: '.pdf', endpoint: '/api/tools/pdf-to-jpg', popular: true },
+      { id: 'jpg-to-pdf', title: 'JPG to PDF', desc: 'Compile multiple JPG pictures into a unified PDF file.', cat: 'to_pdf', icon: '📷', multiple: true, accept: '.jpg,.jpeg', endpoint: '/api/tools/jpg-to-pdf', popular: true },
+      { id: 'split-pdf', title: 'Split PDF', desc: 'Separate individual pages or extract custom page ranges.', cat: 'organize', icon: '✂️', accept: '.pdf', endpoint: '/api/tools/split', popular: true, hasRange: true },
+      { id: 'protect-pdf', title: 'Protect PDF', desc: 'Encrypt document with AES-256 password security.', cat: 'security', icon: '🔒', accept: '.pdf', endpoint: '/api/tools/protect', popular: true, hasPassword: true },
+      { id: 'unlock-pdf', title: 'Unlock PDF', desc: 'Remove password security and encryption from document.', cat: 'security', icon: '🔓', accept: '.pdf', endpoint: '/api/tools/unlock', popular: true, hasPassword: true },
+      { id: 'sign-pdf', title: 'Sign PDF', desc: 'Draw a digital signature or place a signature stamp onto pages.', cat: 'annotate', icon: '✍️', accept: '.pdf', endpoint: '/api/tools/sign', popular: true, hasSignature: true },
+      { id: 'edit-pdf', title: 'Edit PDF', desc: 'Annotate, add text watermark, or highlight content on pages.', cat: 'organize', icon: '✏️', accept: '.pdf', endpoint: '/api/tools/watermark', popular: true, hasWatermark: true },
+      { id: 'pdf-to-excel', title: 'PDF to Excel (.xlsx)', desc: 'Extract tabular tables from PDF into Excel worksheets.', cat: 'from_pdf', icon: '📗', accept: '.pdf', endpoint: '/api/tools/pdf-to-excel', popular: true },
+
+      // === REMAINING POWER TOOLS ===
+      { id: 'excel-to-pdf', title: 'Excel to PDF', desc: 'Convert XLSX spreadsheets into formatted PDF reports.', cat: 'to_pdf', icon: '📈', accept: '.xlsx,.xls', endpoint: '/api/tools/excel-to-pdf' },
+      { id: 'pdf-to-powerpoint', title: 'PDF to PowerPoint', desc: 'Transform PDF pages into editable presentation slides.', cat: 'from_pdf', icon: '📙', accept: '.pdf', endpoint: '/api/tools/pdf-to-powerpoint' },
+      { id: 'powerpoint-to-pdf', title: 'PowerPoint to PDF', desc: 'Convert PPTX slide decks into clean PDF documents.', cat: 'to_pdf', icon: '📊', accept: '.pptx,.ppt', endpoint: '/api/tools/powerpoint-to-pdf' },
+      { id: 'rotate-pdf', title: 'Rotate PDF', desc: 'Rotate specific or all pages 90°, 180°, or 270° permanently.', cat: 'organize', icon: '🔄', accept: '.pdf', endpoint: '/api/tools/rotate', hasRotate: true },
+      { id: 'add-watermark', title: 'Add Watermark', desc: 'Stamp custom copyright text watermark with opacity & angle.', cat: 'annotate', icon: '💧', accept: '.pdf', endpoint: '/api/tools/watermark', hasWatermark: true },
+      { id: 'add-page-numbers', title: 'Add Page Numbers', desc: 'Insert automatic header or footer page numbers.', cat: 'annotate', icon: '🔢', accept: '.pdf', endpoint: '/api/tools/page-numbers', hasNumbers: true },
+      { id: 'delete-pages', title: 'Delete PDF Pages', desc: 'Remove unwanted pages or sections from your PDF document.', cat: 'organize', icon: '🗑️', accept: '.pdf', endpoint: '/api/tools/delete-pages', hasRange: true },
+      { id: 'extract-pages', title: 'Extract PDF Pages', desc: 'Export selected page numbers into a standalone clean PDF.', cat: 'organize', icon: '📤', accept: '.pdf', endpoint: '/api/tools/extract-pages', hasRange: true },
       { id: 'crop-pdf', title: 'Crop PDF', desc: 'Trim document margins for print or display.', cat: 'organize', icon: '📐', accept: '.pdf', endpoint: '/api/tools/crop', hasMargin: true },
       { id: 'resize-pdf', title: 'Resize PDF', desc: 'Standardize document page dimensions to A4, Letter, A3.', cat: 'organize', icon: '📏', accept: '.pdf', endpoint: '/api/tools/resize', hasSize: true },
-      { id: 'compare-pdf', title: 'Compare PDF', desc: 'Compare text and structure differences between two versions.', cat: 'organize', icon: '🔍', accept: '.pdf', multiple: true, endpoint: '/api/tools/compare' },
-
-      // Security
-      { id: 'protect-pdf', title: 'Protect PDF', desc: 'Encrypt document with AES-256 password protection.', cat: 'security', icon: '🔒', accept: '.pdf', endpoint: '/api/tools/protect', hasPassword: true },
-      { id: 'unlock-pdf', title: 'Unlock PDF', desc: 'Remove password security and encryption from document.', cat: 'security', icon: '🔓', accept: '.pdf', endpoint: '/api/tools/unlock', hasPassword: true },
-
-      // Annotate
-      { id: 'add-watermark', title: 'Add Watermark', desc: 'Stamp custom copyright text watermark with opacity & angle.', cat: 'annotate', icon: '💧', accept: '.pdf', endpoint: '/api/tools/watermark', hasWatermark: true },
-      { id: 'sign-pdf', title: 'Sign PDF', desc: 'Draw a digital signature or place a signature image onto pages.', cat: 'annotate', icon: '✍️', accept: '.pdf', endpoint: '/api/tools/sign', hasSignature: true },
-      { id: 'add-page-numbers', title: 'Add Page Numbers', desc: 'Insert automatic header or footer page numbers.', cat: 'annotate', icon: '🔢', accept: '.pdf', endpoint: '/api/tools/page-numbers', hasNumbers: true },
-
-      // Convert From PDF
-      { id: 'pdf-to-word', title: 'PDF to Word (.docx)', desc: 'Convert PDF into an editable Microsoft Word document.', cat: 'from_pdf', icon: '📘', accept: '.pdf', endpoint: '/api/tools/pdf-to-word' },
-      { id: 'pdf-to-powerpoint', title: 'PDF to PowerPoint', desc: 'Transform PDF pages into editable presentation slides.', cat: 'from_pdf', icon: '📙', accept: '.pdf', endpoint: '/api/tools/pdf-to-powerpoint' },
-      { id: 'pdf-to-excel', title: 'PDF to Excel (.xlsx)', desc: 'Extract tabular tables from PDF into Excel worksheets.', cat: 'from_pdf', icon: '📗', accept: '.pdf', endpoint: '/api/tools/pdf-to-excel' },
-      { id: 'pdf-to-jpg', title: 'PDF to JPG', desc: 'Render PDF pages into crisp high-definition JPG images.', cat: 'from_pdf', icon: '🖼️', accept: '.pdf', endpoint: '/api/tools/pdf-to-jpg' },
+      { id: 'compare-pdf', title: 'Compare PDF', desc: 'Side-by-side text and structure diff analyzer between two files.', cat: 'organize', icon: '🔍', accept: '.pdf', multiple: true, endpoint: '/api/tools/compare' },
+      { id: 'organize-pdf', title: 'Organize PDF', desc: 'Sort, reorder, rotate, and delete specific pages interactively.', cat: 'organize', icon: '📋', accept: '.pdf', endpoint: '/api/tools/rotate', hasRotate: true },
       { id: 'pdf-to-png', title: 'PDF to PNG', desc: 'Render PDF pages into lossless transparent PNG graphics.', cat: 'from_pdf', icon: '🎨', accept: '.pdf', endpoint: '/api/tools/pdf-to-png' },
-      { id: 'pdf-to-text', title: 'PDF to Text (.txt)', desc: 'Extract clean raw plain text with page separators.', cat: 'from_pdf', icon: '📝', accept: '.pdf', endpoint: '/api/tools/pdf-to-text' },
-
-      // Convert To PDF
-      { id: 'word-to-pdf', title: 'Word to PDF', desc: 'Convert DOCX Word documents into professional PDF files.', cat: 'to_pdf', icon: '📄', accept: '.docx,.doc', endpoint: '/api/tools/word-to-pdf' },
-      { id: 'powerpoint-to-pdf', title: 'PowerPoint to PDF', desc: 'Convert PPTX slide decks into clean PDF documents.', cat: 'to_pdf', icon: '📊', accept: '.pptx,.ppt', endpoint: '/api/tools/powerpoint-to-pdf' },
-      { id: 'excel-to-pdf', title: 'Excel to PDF', desc: 'Convert XLSX spreadsheets into formatted PDF reports.', cat: 'to_pdf', icon: '📈', accept: '.xlsx,.xls', endpoint: '/api/tools/excel-to-pdf' },
-      { id: 'jpg-to-pdf', title: 'JPG to PDF', desc: 'Compile multiple JPG pictures into a unified PDF file.', cat: 'to_pdf', icon: '📷', multiple: true, accept: '.jpg,.jpeg', endpoint: '/api/tools/jpg-to-pdf' },
       { id: 'png-to-pdf', title: 'PNG to PDF', desc: 'Compile multiple PNG graphics into a unified PDF file.', cat: 'to_pdf', icon: '🖼️', multiple: true, accept: '.png', endpoint: '/api/tools/png-to-pdf' },
+      { id: 'pdf-to-text', title: 'PDF to Text (.txt)', desc: 'Extract clean raw plain text with page separators.', cat: 'from_pdf', icon: '📝', accept: '.pdf', endpoint: '/api/tools/pdf-to-text' },
       { id: 'html-to-pdf', title: 'HTML to PDF', desc: 'Render HTML code or web pages directly into PDF format.', cat: 'to_pdf', icon: '🌐', accept: '.html,.htm', endpoint: '/api/tools/html-to-pdf', hasHtml: true },
       { id: 'scan-to-pdf', title: 'Scan to PDF', desc: 'Turn photos or camera scans into optimized PDF documents.', cat: 'to_pdf', icon: '📸', multiple: true, accept: '.jpg,.jpeg,.png', endpoint: '/api/tools/jpg-to-pdf' },
-
-      // OCR & Utilities
       { id: 'ocr-text', title: 'OCR / Image to Text', desc: 'Extract editable text from scanned pictures and documents.', cat: 'ocr', icon: '👁️', accept: '.jpg,.jpeg,.png', endpoint: '/api/tools/ocr' },
       { id: 'ocr-pdf', title: 'OCR to Searchable PDF', desc: 'Convert scanned PDF into searchable document with text layer.', cat: 'ocr', icon: '🔍', accept: '.jpg,.jpeg,.png', endpoint: '/api/tools/ocr-pdf' },
       { id: 'extract-images', title: 'Extract Images from PDF', desc: 'Extract all embedded graphics and photos into a ZIP file.', cat: 'ocr', icon: '📦', accept: '.pdf', endpoint: '/api/tools/extract-images' }
     ];
 
     const CATEGORIES = [
-      { id: 'all', name: 'All Tools' },
+      { id: 'all', name: '🔥 All 32 Tools' },
       { id: 'organize', name: 'Organize & Edit' },
+      { id: 'from_pdf', name: 'PDF to Office/Img' },
+      { id: 'to_pdf', name: 'Office/Img to PDF' },
       { id: 'security', name: 'Security' },
-      { id: 'annotate', name: 'Annotate' },
-      { id: 'from_pdf', name: 'Convert from PDF' },
-      { id: 'to_pdf', name: 'Convert to PDF' },
+      { id: 'annotate', name: 'Sign & Annotate' },
       { id: 'ocr', name: 'OCR & Utilities' }
     ];
 
@@ -220,7 +229,6 @@
     let selectedTool = null;
     let selectedFiles = [];
 
-    // INIT
     function init() {
       renderTabs();
       renderTools();
@@ -229,7 +237,7 @@
     function renderTabs() {
       const container = document.getElementById('categoryTabs');
       container.innerHTML = CATEGORIES.map(c => `
-        <button onclick="setCategory('${c.id}')" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition ${currentCategory === c.id ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20' : 'bg-slate-900 text-slate-400 hover:text-white border border-slate-800 hover:border-slate-700'}">
+        <button onclick="setCategory('${c.id}')" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition cursor-pointer ${currentCategory === c.id ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/25 ring-1 ring-white/20' : 'bg-slate-900 text-slate-400 hover:text-white border border-slate-800 hover:border-slate-700'}">
           ${c.name}
         </button>
       `).join('');
@@ -257,12 +265,15 @@
     function renderTools() {
       const grid = document.getElementById('toolsGrid');
       const noResults = document.getElementById('noResults');
+      const toolCountBadge = document.getElementById('toolCountBadge');
 
       const filtered = TOOLS.filter(t => {
         const matchCat = currentCategory === 'all' || t.cat === currentCategory;
         const matchQuery = !searchQuery || t.title.toLowerCase().includes(searchQuery) || t.desc.toLowerCase().includes(searchQuery);
         return matchCat && matchQuery;
       });
+
+      toolCountBadge.innerText = `${filtered.length} Tools`;
 
       if (filtered.length === 0) {
         grid.innerHTML = '';
@@ -272,24 +283,27 @@
 
       noResults.classList.add('hidden');
       grid.innerHTML = filtered.map(t => `
-        <div onclick="openModal('${t.id}')" class="group bg-slate-900/60 hover:bg-slate-900 border border-slate-800 hover:border-indigo-500/50 rounded-2xl p-5 cursor-pointer transition-all duration-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-500/5 flex flex-col justify-between">
+        <div onclick="openModal('${t.id}')" class="group bg-slate-900/60 hover:bg-slate-900 border border-slate-800/90 hover:border-indigo-500/60 rounded-2xl p-4.5 sm:p-5 cursor-pointer transition-all duration-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-500/5 flex flex-col justify-between">
           <div>
-            <div class="flex items-center justify-between mb-4">
-              <span class="text-3xl p-2.5 rounded-xl bg-slate-800/80 border border-slate-700/50 group-hover:scale-110 transition duration-200 inline-block">${t.icon}</span>
-              ${t.multiple ? '<span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">Multi-file</span>' : ''}
+            <div class="flex items-center justify-between mb-3.5">
+              <span class="text-2.5xl p-2 rounded-xl bg-slate-800/70 border border-slate-700/50 group-hover:scale-105 transition duration-200 inline-block">${t.icon}</span>
+              <div class="flex items-center gap-1.5">
+                ${t.popular ? '<span class="text-[9px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/25">⭐ Popular</span>' : ''}
+                ${t.multiple ? '<span class="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-md bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">Multi</span>' : ''}
+              </div>
             </div>
-            <h3 class="font-bold text-white text-base group-hover:text-indigo-300 transition">${t.title}</h3>
+            <h3 class="font-bold text-white text-sm sm:text-base group-hover:text-indigo-300 transition leading-snug">${t.title}</h3>
             <p class="text-slate-400 text-xs mt-1.5 leading-relaxed line-clamp-2">${t.desc}</p>
           </div>
-          <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-semibold text-slate-500 group-hover:text-indigo-400 transition">
-            <span>Launch Tool</span>
-            <svg class="w-4 h-4 transform group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-semibold text-slate-500 group-hover:text-indigo-400 transition">
+            <span>Use Tool</span>
+            <svg class="w-3.5 h-3.5 transform group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
           </div>
         </div>
       `).join('');
     }
 
-    // MODAL LOGIC
+    // MODAL
     function openModal(toolId) {
       selectedTool = TOOLS.find(t => t.id === toolId);
       if (!selectedTool) return;
@@ -347,6 +361,7 @@
       const container = document.getElementById('fileListContainer');
       const list = document.getElementById('fileList');
       const processBtn = document.getElementById('processBtn');
+      const countBadge = document.getElementById('fileCountBadge');
 
       if (selectedFiles.length === 0) {
         container.classList.add('hidden');
@@ -356,6 +371,7 @@
 
       container.classList.remove('hidden');
       processBtn.disabled = false;
+      countBadge.innerText = `${selectedFiles.length} file(s)`;
 
       list.innerHTML = selectedFiles.map((f, i) => `
         <div class="flex items-center justify-between p-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-300">
@@ -365,7 +381,7 @@
             <span class="text-[10px] text-slate-500">(${(f.size / 1024).toFixed(1)} KB)</span>
           </div>
           <button onclick="removeFile(${i})" class="text-rose-400 hover:text-rose-300 p-1">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
           </button>
         </div>
       `).join('');
@@ -378,43 +394,43 @@
       if (selectedTool.hasPassword) {
         container.innerHTML = `
           <div>
-            <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5">Document Password</label>
-            <input type="password" id="optPassword" placeholder="Enter password..." class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-600 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1">Document Password</label>
+            <input type="password" id="optPassword" placeholder="Enter password..." class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-600 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
           </div>
         `;
       } else if (selectedTool.hasRange) {
         container.innerHTML = `
           <div>
-            <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5">Page Range (e.g. 1-3, 5)</label>
-            <input type="text" id="optRange" placeholder="1-3, 5 or leave empty for all" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-600 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1">Page Range (e.g. 1-3, 5)</label>
+            <input type="text" id="optRange" placeholder="1-3, 5 or leave blank for all" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-600 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
           </div>
         `;
       } else if (selectedTool.hasCompress) {
         container.innerHTML = `
           <div>
-            <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5">Compression Level</label>
-            <select id="optCompress" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
-              <option value="medium">Medium (Recommended - Balanced Size & Quality)</option>
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1">Compression Level</label>
+            <select id="optCompress" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              <option value="medium">Medium (Recommended - Balanced Size & Clarity)</option>
               <option value="high">High (Maximum Compression)</option>
-              <option value="low">Low (Light Compression, Original Quality)</option>
+              <option value="low">Low (Light Compression, High Quality)</option>
             </select>
           </div>
         `;
       } else if (selectedTool.hasWatermark) {
         container.innerHTML = `
-          <div class="space-y-3">
+          <div class="space-y-2.5">
             <div>
-              <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5">Watermark Text</label>
-              <input type="text" id="optWatermarkText" value="CONFIDENTIAL" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1">Watermark Text</label>
+              <input type="text" id="optWatermarkText" value="CONFIDENTIAL" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
             </div>
-            <div class="grid grid-cols-2 gap-3">
+            <div class="grid grid-cols-2 gap-2.5">
               <div>
-                <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5">Opacity (0.1 to 1.0)</label>
-                <input type="number" step="0.1" id="optWatermarkOpacity" value="0.3" min="0.1" max="1" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none">
+                <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1">Opacity (0.1 - 1.0)</label>
+                <input type="number" step="0.1" id="optWatermarkOpacity" value="0.3" min="0.1" max="1" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs focus:outline-none">
               </div>
               <div>
-                <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5">Rotation Angle</label>
-                <select id="optWatermarkAngle" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none">
+                <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1">Rotation Angle</label>
+                <select id="optWatermarkAngle" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs focus:outline-none">
                   <option value="45">45° Diagonal</option>
                   <option value="0">0° Horizontal</option>
                   <option value="-45">-45° Diagonal</option>
@@ -426,10 +442,10 @@
       } else if (selectedTool.hasRotate) {
         container.innerHTML = `
           <div>
-            <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5">Rotation Angle</label>
-            <select id="optRotate" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none">
+            <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1">Rotation Angle</label>
+            <select id="optRotate" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
               <option value="90">90° Clockwise</option>
-              <option value="180">180° Upside Down</option>
+              <option value="180">180° Half Turn</option>
               <option value="270">270° Counter-Clockwise</option>
             </select>
           </div>
@@ -437,12 +453,14 @@
       }
     }
 
-    // PROCESS & API CALL
+    // PROCESS TOOL
     async function processTool() {
       if (!selectedTool || selectedFiles.length === 0) return;
 
       const processBtn = document.getElementById('processBtn');
+      const processBtnText = document.getElementById('processBtnText');
       processBtn.disabled = true;
+      processBtnText.innerText = 'Processing...';
       showStatus('Processing document with native engine...', 'info');
 
       try {
@@ -454,7 +472,6 @@
           formData.append('file', selectedFiles[0]);
         }
 
-        // Add options
         if (selectedTool.hasPassword) {
           const pass = document.getElementById('optPassword')?.value || '';
           formData.append('password', pass);
@@ -490,11 +507,10 @@
           throw new Error(errData.detail || `Server returned HTTP ${response.status}`);
         }
 
-        // Check if response is JSON (like OCR) or Binary file
         const contentType = response.headers.get('content-type') || '';
         if (contentType.includes('application/json')) {
           const data = await response.json();
-          showStatus(`Success! Result: ${data.text || JSON.stringify(data)}`, 'success');
+          showStatus(`✓ Success! Result: ${data.text || JSON.stringify(data)}`, 'success');
         } else {
           const blob = await response.blob();
           const disposition = response.headers.get('content-disposition');
@@ -506,7 +522,6 @@
             }
           }
 
-          // Trigger download
           const url = window.URL.createObjectURL(blob);
           const a = document.createElement('a');
           a.href = url;
@@ -522,6 +537,7 @@
         showStatus(`Error: ${err.message}`, 'error');
       } finally {
         processBtn.disabled = false;
+        processBtnText.innerText = 'Process & Download';
       }
     }
 
@@ -547,7 +563,6 @@
       document.documentElement.classList.toggle('dark');
     }
 
-    // Launch on load
     init();
   </script>
 </body>

@@ -961,7 +961,7 @@ export default function App() {
   ];
 
   const filteredTools = useMemo(() => {
-    return TOOLS.filter(t => {
+    const list = TOOLS.filter(t => {
       const matchesCat = selectedCategory === 'all' || t.category === selectedCategory;
       const q = searchQuery.toLowerCase().trim();
       const matchesSearch = !q ||
@@ -970,6 +970,10 @@ export default function App() {
         t.id.includes(q);
       return matchesCat && matchesSearch;
     });
+    if (selectedCategory === 'all' && !searchQuery.trim()) {
+      return [...list].sort((a, b) => (b.popular ? 1 : 0) - (a.popular ? 1 : 0));
+    }
+    return list;
   }, [selectedCategory, searchQuery]);
 
   return (
