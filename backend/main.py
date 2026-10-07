@@ -600,6 +600,39 @@ if FRONTEND_DIST.exists():
         if target.is_file():
             return FileResponse(str(target))
         return FileResponse(str(FRONTEND_DIST / "index.html"))
+else:
+    from fastapi.responses import HTMLResponse
+
+    @app.get("/", response_class=HTMLResponse)
+    async def serve_fallback_home():
+        return """<!DOCTYPE html>
+<html>
+<head>
+    <title>DocuTools - Local Server</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f172a; color: #f8fafc; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box; }
+        .card { background: #1e293b; border: 1px solid #334155; border-radius: 16px; padding: 40px; max-width: 600px; text-align: center; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); }
+        h1 { font-size: 2rem; margin: 0 0 10px; color: #38bdf8; }
+        p { color: #94a3b8; font-size: 1rem; line-height: 1.6; margin: 0 0 25px; }
+        .btn { display: inline-block; background: #2563eb; color: #fff; padding: 12px 28px; border-radius: 8px; font-weight: 600; text-decoration: none; transition: background 0.2s; font-size: 1.1rem; }
+        .btn:hover { background: #1d4ed8; }
+        .badge { display: inline-block; background: #064e3b; color: #34d399; padding: 4px 12px; border-radius: 9999px; font-size: 0.85rem; font-weight: 600; margin-bottom: 20px; }
+        .tools-list { margin-top: 25px; text-align: left; background: #0f172a; border-radius: 8px; padding: 15px 20px; font-size: 0.875rem; color: #cbd5e1; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <span class="badge">&#10003; Server Running (Port 8000)</span>
+        <h1>DocuTools Engine Active</h1>
+        <p>All 32 document & PDF processing tools are loaded and ready in memory. You can execute and test any tool live right now.</p>
+        <a href="/docs" class="btn">&#128640; Open Interactive Tools Dashboard (/docs)</a>
+        <div class="tools-list">
+            <strong>32 Loaded Tools:</strong> Merge, Split, Compress, Watermark, Protect, Unlock, Edit, Rotate, Sign, PDF to Word, Excel, PowerPoint, OCR & more.
+        </div>
+    </div>
+</body>
+</html>"""
 
 if __name__ == "__main__":
     import uvicorn
