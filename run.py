@@ -4,6 +4,7 @@ import subprocess
 import webbrowser
 import time
 from pathlib import Path
+import uvicorn
 
 ROOT_DIR = Path(__file__).resolve().parent
 BACKEND_DIR = ROOT_DIR / "backend"
