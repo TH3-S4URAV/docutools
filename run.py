@@ -1,4 +1,4 @@
-﻿import os
+import os
 import sys
 import subprocess
 import webbrowser
@@ -38,8 +38,7 @@ def main():
     # Add backend directory to sys.path
     sys.path.insert(0, str(BACKEND_DIR))
 
-    import uvicorn
-    uvicorn.run("app.main:app", host=host, port=port, app_dir=str(BACKEND_DIR))
+    uvicorn.run("main:app", host=host, port=port, app_dir=str(BACKEND_DIR))
 
 if __name__ == "__main__":
     main()
