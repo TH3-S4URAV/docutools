@@ -591,21 +591,34 @@ app.include_router(router)
 
 # Static frontend serving
 FRONTEND_DIST = BASE_DIR.parent / "frontend" / "dist"
-if FRONTEND_DIST.exists():
+FRONTEND_STANDALONE = BASE_DIR.parent / "frontend" / "app.html"
+
+if FRONTEND_DIST.exists() and (FRONTEND_DIST / "assets").exists():
     app.mount("/assets", StaticFiles(directory=str(FRONTEND_DIST / "assets")), name="assets")
 
-    @app.get("/{full_path:path}")
-    async def serve_frontend(full_path: str):
+@app.get("/{full_path:path}")
+async def serve_frontend(full_path: str):
+    # 1. Serve specific file from dist if requested
+    if full_path and FRONTEND_DIST.exists():
         target = FRONTEND_DIST / full_path
         if target.is_file():
             return FileResponse(str(target))
-        return FileResponse(str(FRONTEND_DIST / "index.html"))
-else:
-    from fastapi.responses import HTMLResponse
 
-    @app.get("/", response_class=HTMLResponse)
-    async def serve_fallback_home():
-        return """<!DOCTYPE html>
+    # 2. Serve standalone app if requested directly
+    if full_path in ("app", "app.html", "standalone") and FRONTEND_STANDALONE.exists():
+        return FileResponse(str(FRONTEND_STANDALONE))
+
+    # 3. Serve React dist index.html if available
+    if FRONTEND_DIST.exists() and (FRONTEND_DIST / "index.html").exists():
+        return FileResponse(str(FRONTEND_DIST / "index.html"))
+
+    # 4. Fallback to single-file frontend app.html
+    if FRONTEND_STANDALONE.exists():
+        return FileResponse(str(FRONTEND_STANDALONE))
+
+    # 5. Last resort fallback landing page
+    from fastapi.responses import HTMLResponse
+    return HTMLResponse("""<!DOCTYPE html>
 <html>
 <head>
     <title>DocuTools - Local Server</title>
@@ -632,7 +645,7 @@ else:
         </div>
     </div>
 </body>
-</html>"""
+</html>""")
 
 if __name__ == "__main__":
     import uvicorn

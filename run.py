@@ -12,7 +12,9 @@ FRONTEND_DIR = ROOT_DIR / "frontend"
 FRONTEND_DIST = FRONTEND_DIR / "dist"
 
 def ensure_frontend_built():
-    if not (FRONTEND_DIST / "index.html").exists():
+    if (FRONTEND_DIR / "app.html").exists() or (FRONTEND_DIST / "index.html").exists():
+        return
+    if FRONTEND_DIR.exists():
         print("[DocuTools] Frontend build not detected. Building frontend...")
         try:
             subprocess.run(["npm", "run", "build"], cwd=str(FRONTEND_DIR), check=True, shell=True)
