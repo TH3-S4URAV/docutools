@@ -609,8 +609,10 @@ async def api_extract_images(bg: BackgroundTasks, file: UploadFile = File(...)):
 app.include_router(router)
 
 # Static frontend serving
-FRONTEND_DIST = BASE_DIR.parent / "frontend" / "dist"
-FRONTEND_STANDALONE = BASE_DIR.parent / "frontend" / "app.html"
+FRONTEND_DIR = BASE_DIR.parent / "frontend"
+FRONTEND_DIST = FRONTEND_DIR / "dist"
+FRONTEND_INDEX = FRONTEND_DIR / "index.html"
+FRONTEND_APP = FRONTEND_DIR / "app.html"
 
 if FRONTEND_DIST.exists() and (FRONTEND_DIST / "assets").exists():
     app.mount("/assets", StaticFiles(directory=str(FRONTEND_DIST / "assets")), name="assets")
@@ -624,25 +626,24 @@ async def serve_frontend(request: Request, full_path: str):
     if request.method != "GET":
         raise HTTPException(status_code=405, detail=f"Method {request.method} not allowed for page.")
 
-    # 1. Serve specific file from dist if requested
-    if full_path and FRONTEND_DIST.exists():
-        target = FRONTEND_DIST / full_path
-        if target.is_file():
-            return FileResponse(str(target))
+    # 1. Serve specific file if requested
+    if full_path:
+        if FRONTEND_DIST.exists() and (FRONTEND_DIST / full_path).is_file():
+            return FileResponse(str(FRONTEND_DIST / full_path))
+        if (FRONTEND_DIR / full_path).is_file():
+            return FileResponse(str(FRONTEND_DIR / full_path))
 
-    # 2. Serve standalone app if requested directly
-    if full_path in ("app", "app.html", "standalone") and FRONTEND_STANDALONE.exists():
-        return FileResponse(str(FRONTEND_STANDALONE))
+    # 2. Serve single-file frontend if present
+    if FRONTEND_INDEX.is_file():
+        return FileResponse(str(FRONTEND_INDEX))
+    if FRONTEND_APP.is_file():
+        return FileResponse(str(FRONTEND_APP))
 
     # 3. Serve React dist index.html if available
-    if FRONTEND_DIST.exists() and (FRONTEND_DIST / "index.html").exists():
+    if FRONTEND_DIST.exists() and (FRONTEND_DIST / "index.html").is_file():
         return FileResponse(str(FRONTEND_DIST / "index.html"))
 
-    # 4. Fallback to single-file frontend app.html
-    if FRONTEND_STANDALONE.exists():
-        return FileResponse(str(FRONTEND_STANDALONE))
-
-    # 5. Last resort fallback landing page
+    # 4. Fallback landing page
     from fastapi.responses import HTMLResponse
     return HTMLResponse("""<!DOCTYPE html>
 <html>
