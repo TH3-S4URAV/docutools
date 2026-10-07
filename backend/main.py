@@ -262,6 +262,7 @@ async def api_compress(bg: BackgroundTasks, file: UploadFile = File(...), level:
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.post("/tools/rotate")
+@router.post("/tools/organize")
 async def api_rotate(bg: BackgroundTasks, file: UploadFile = File(...), angle: int = Form(90), pages: str = Form("all")):
     validate_extension(file.filename, 'pdf')
     ws = create_workspace()
@@ -368,7 +369,8 @@ async def api_unlock(bg: BackgroundTasks, file: UploadFile = File(...), password
 
 # --- PDF Annotation & Sign ---
 @router.post("/tools/watermark")
-async def api_watermark(bg: BackgroundTasks, file: UploadFile = File(...), text: str = Form(...), opacity: float = Form(0.3), font_size: float = Form(40), angle: float = Form(45), position: str = Form("center")):
+@router.post("/tools/edit")
+async def api_watermark(bg: BackgroundTasks, file: UploadFile = File(...), text: str = Form("ANNOTATED"), opacity: float = Form(0.3), font_size: float = Form(40), angle: float = Form(45), position: str = Form("center")):
     validate_extension(file.filename, 'pdf')
     ws = create_workspace()
     try:
@@ -409,6 +411,7 @@ async def api_sign(bg: BackgroundTasks, file: UploadFile = File(...), signature:
 
 # --- PDF Conversions ---
 @router.post("/tools/pdf-to-docx")
+@router.post("/tools/pdf-to-word")
 async def api_pdf_to_docx(bg: BackgroundTasks, file: UploadFile = File(...)):
     validate_extension(file.filename, 'pdf')
     ws = create_workspace()
@@ -422,6 +425,7 @@ async def api_pdf_to_docx(bg: BackgroundTasks, file: UploadFile = File(...)):
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.post("/tools/pdf-to-pptx")
+@router.post("/tools/pdf-to-powerpoint")
 async def api_pdf_to_pptx(bg: BackgroundTasks, file: UploadFile = File(...), dpi: int = Form(150)):
     validate_extension(file.filename, 'pdf')
     ws = create_workspace()
@@ -435,6 +439,7 @@ async def api_pdf_to_pptx(bg: BackgroundTasks, file: UploadFile = File(...), dpi
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.post("/tools/pdf-to-xlsx")
+@router.post("/tools/pdf-to-excel")
 async def api_pdf_to_xlsx(bg: BackgroundTasks, file: UploadFile = File(...)):
     validate_extension(file.filename, 'pdf')
     ws = create_workspace()
@@ -448,8 +453,15 @@ async def api_pdf_to_xlsx(bg: BackgroundTasks, file: UploadFile = File(...)):
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.post("/tools/pdf-to-images")
-async def api_pdf_to_images(bg: BackgroundTasks, file: UploadFile = File(...), format: str = Form("png"), dpi: int = Form(200)):
+@router.post("/tools/pdf-to-jpg")
+@router.post("/tools/pdf-to-png")
+async def api_pdf_to_images(request: Request, bg: BackgroundTasks, file: UploadFile = File(...), format: str = Form("png"), dpi: int = Form(200)):
     validate_extension(file.filename, 'pdf')
+    req_path = request.url.path.lower()
+    if "jpg" in req_path or "jpeg" in req_path:
+        format = "jpg"
+    elif "png" in req_path:
+        format = "png"
     ws = create_workspace()
     try:
         in_pdf = await save_upload(file, ws)
@@ -461,6 +473,7 @@ async def api_pdf_to_images(bg: BackgroundTasks, file: UploadFile = File(...), f
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.post("/tools/pdf-to-txt")
+@router.post("/tools/pdf-to-text")
 async def api_pdf_to_txt(bg: BackgroundTasks, file: UploadFile = File(...)):
     validate_extension(file.filename, 'pdf')
     ws = create_workspace()
@@ -475,6 +488,7 @@ async def api_pdf_to_txt(bg: BackgroundTasks, file: UploadFile = File(...)):
 
 # --- Other Formats to PDF ---
 @router.post("/tools/docx-to-pdf")
+@router.post("/tools/word-to-pdf")
 async def api_docx_to_pdf(bg: BackgroundTasks, file: UploadFile = File(...)):
     validate_extension(file.filename, 'office')
     ws = create_workspace()
@@ -488,6 +502,7 @@ async def api_docx_to_pdf(bg: BackgroundTasks, file: UploadFile = File(...)):
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.post("/tools/pptx-to-pdf")
+@router.post("/tools/powerpoint-to-pdf")
 async def api_pptx_to_pdf(bg: BackgroundTasks, file: UploadFile = File(...)):
     validate_extension(file.filename, 'office')
     ws = create_workspace()
@@ -501,6 +516,7 @@ async def api_pptx_to_pdf(bg: BackgroundTasks, file: UploadFile = File(...)):
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.post("/tools/xlsx-to-pdf")
+@router.post("/tools/excel-to-pdf")
 async def api_xlsx_to_pdf(bg: BackgroundTasks, file: UploadFile = File(...)):
     validate_extension(file.filename, 'office')
     ws = create_workspace()
@@ -514,6 +530,9 @@ async def api_xlsx_to_pdf(bg: BackgroundTasks, file: UploadFile = File(...)):
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.post("/tools/images-to-pdf")
+@router.post("/tools/jpg-to-pdf")
+@router.post("/tools/png-to-pdf")
+@router.post("/tools/scan-to-pdf")
 async def api_images_to_pdf(bg: BackgroundTasks, files: List[UploadFile] = File(...), orientation: str = Form("portrait")):
     if not files:
         raise HTTPException(status_code=400, detail="At least one image is required.")
@@ -596,8 +615,15 @@ FRONTEND_STANDALONE = BASE_DIR.parent / "frontend" / "app.html"
 if FRONTEND_DIST.exists() and (FRONTEND_DIST / "assets").exists():
     app.mount("/assets", StaticFiles(directory=str(FRONTEND_DIST / "assets")), name="assets")
 
-@app.get("/{full_path:path}")
-async def serve_frontend(full_path: str):
+@app.api_route("/{full_path:path}", methods=["GET", "POST", "PUT", "DELETE"])
+async def serve_frontend(request: Request, full_path: str):
+    # Return clear 404 JSON for unmatched API requests instead of catching as HTML
+    if full_path.startswith("api/"):
+        raise HTTPException(status_code=404, detail=f"API endpoint '/{full_path}' not found.")
+
+    if request.method != "GET":
+        raise HTTPException(status_code=405, detail=f"Method {request.method} not allowed for page.")
+
     # 1. Serve specific file from dist if requested
     if full_path and FRONTEND_DIST.exists():
         target = FRONTEND_DIST / full_path
